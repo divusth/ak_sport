@@ -12,7 +12,7 @@
         }
 
         html {
-            scroll-behavior: smooth; /* تمرير سلس عند الضغط على الزر */
+            scroll-behavior: smooth;
         }
 
         body {
@@ -66,27 +66,50 @@
         }
 
         .section-title {
-            margin-bottom: 25px;
-            font-size: 1.6rem;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
             text-transform: uppercase;
             border-bottom: 3px solid #007bff;
             display: inline-block;
             padding-bottom: 8px;
         }
 
-        .btn-option {
+        /* كروت العروض الاحترافية */
+        .offer-card {
+            background: #161616;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            text-align: left;
+        }
+
+        .offer-card h3 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .offer-card p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            margin-bottom: 18px;
+            line-height: 1.4;
+        }
+
+        .btn-choisir {
             display: block;
             width: 100%;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            border: 1px solid #333;
-            padding: 16px;
-            margin: 12px 0;
-            border-radius: 12px;
+            background: #25d366;
+            color: white;
+            text-align: center;
+            padding: 14px;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: bold;
             font-size: 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
         }
     </style>
 </head>
@@ -95,14 +118,27 @@
     <header class="hero">
         <h1>BUILD YOUR POWER</h1>
         <p>Entraînez-vous avec le Coach Akram & atteignez vos objectifs physiquement et mentalement.</p>
-        <a href="#services" class="btn-main">Commencer maintenant</a>
+        <a href="#offres" class="btn-main">Commencer maintenant</a>
     </header>
 
-    <main class="container" id="services">
-        <h2 class="section-title">NOS PROGRAMMES</h2>
-        <a href="#programmes" class="btn-option">💪 Programmes d'entraînement</a>
-        <a href="#nutrition" class="btn-option">🥗 Plan Nutritionnel</a>
-        <a href="#contact" class="btn-option" style="background: #25d366; color: white; border: none;">💬 Contacter sur WhatsApp</a>
+    <main class="container" id="offres">
+        <h2 class="section-title">Nos offres</h2>
+
+        <!-- العرض الأول -->
+        <div class="offer-card">
+            <h3>💪 Coaching Personnalisé</h3>
+            <p>Programme d'entraînement sur mesure adaptatif selon vos objectifs avec suivi régulier.</p>
+            <!-- استبدلي الرقم 213xxxxxxxxx برقم الواتساب الخاص بالكوتش -->
+            <a href="https://wa.me/213xxxxxxxxx?text=Bonjour%20Coach,%20je%20souhaite%20choisir%20le%20Coaching%20Personnalisé" class="btn-choisir">Choisir</a>
+        </div>
+
+        <!-- العرض الثاني -->
+        <div class="offer-card">
+            <h3>🔥 Programme Calisthenics</h3>
+            <p>Apprenez à maîtriser votre corps, développer votre force et acquérir de nouvelles figures.</p>
+            <!-- استبدلي الرقم 213xxxxxxxxx برقم الواتساب الخاص بالكوتش -->
+            <a href="https://wa.me/213xxxxxxxxx?text=Bonjour%20Coach,%20je%20souhaite%20choisir%20le%20Programme%20Calisthenics" class="btn-choisir">Choisir</a>
+        </div>
     </main>
 
 </body>
