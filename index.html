@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -12,10 +12,21 @@
         .lang-btn { background: none; border: none; color: #fff; font-weight: bold; cursor: pointer; padding: 2px 5px; }
         .lang-btn.active { color: #007bff; }
 
-        .hero { padding: 80px 20px 40px; background: #111; }
-        .hero h1 { font-size: 28px; margin-bottom: 10px; }
-        .hero p { color: #ccc; margin-bottom: 20px; }
-        .btn-main { background: #007bff; color: #fff; border: none; padding: 12px 30px; font-size: 18px; border-radius: 25px; cursor: pointer; font-weight: bold; }
+        /* الواجهة الرئيسية مع ربط خلفيتها بالصورة akram.jpg.jpg */
+        .hero { 
+            padding: 100px 20px 60px; 
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('akram.jpg.jpg') center/cover no-repeat;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 { font-size: 32px; margin-bottom: 10px; letter-spacing: 1px; }
+        .hero p { color: #ccc; margin-bottom: 25px; max-width: 500px; line-height: 1.5; }
+        .btn-main { background: #007bff; color: #fff; border: none; padding: 14px 35px; font-size: 18px; border-radius: 25px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-main:hover { background: #0056b3; }
 
         /* Modal النافذة المنبثقة */
         #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; }
@@ -273,4 +284,3 @@
     </script>
 </body>
 </html>
-
