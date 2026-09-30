@@ -1,464 +1,245 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AK SPORT - Calisthenics & Fitness</title>
+    <title>AK SPORT</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #0b0b0b; color: #fff; text-align: center; }
+        
+        .lang-bar { position: fixed; top: 10px; right: 10px; z-index: 999; background: #222; padding: 5px 10px; border-radius: 15px; }
+        .lang-btn { background: none; border: none; color: #fff; font-weight: bold; cursor: pointer; padding: 2px 5px; }
+        .lang-btn.active { color: #007bff; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        .hero { padding: 80px 20px 40px; background: #111; }
+        .hero h1 { font-size: 28px; margin-bottom: 10px; }
+        .hero p { color: #ccc; margin-bottom: 20px; }
+        .btn-main { background: #007bff; color: #fff; border: none; padding: 12px 30px; font-size: 18px; border-radius: 25px; cursor: pointer; font-weight: bold; }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0b0b0b;
-            color: #ffffff;
-            text-align: center;
-        }
+        /* Modal النافذة المنبثقة */
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; }
+        .modal-body { background: #1c1c1c; padding: 25px; border-radius: 10px; width: 90%; max-width: 350px; position: relative; }
+        .close-btn { position: absolute; top: 5px; right: 12px; font-size: 24px; cursor: pointer; }
+        select { width: 100%; padding: 10px; margin: 15px 0; background: #333; color: #fff; border: none; border-radius: 5px; }
+        .btn-green { background: #25d366; color: #fff; border: none; padding: 10px; width: 100%; font-weight: bold; border-radius: 5px; cursor: pointer; }
 
-        /* شريط تغيير اللغة */
-        .lang-switch {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            z-index: 9999;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 8px 15px;
-            border-radius: 20px;
-            border: 1px solid #333;
-        }
+        /* قسم العروض */
+        #offres { display: none; padding: 40px 20px; max-width: 500px; margin: 0 auto; }
+        .card { background: #161616; border: 1px solid #333; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: left; }
+        body.rtl .card { text-align: right; }
+        .price { color: #25d366; font-size: 18px; font-weight: bold; margin: 5px 0; }
+        ul { list-style: none; margin-bottom: 10px; }
+        li { font-size: 14px; color: #ddd; margin-bottom: 4px; }
+        .btn-buy { display: block; background: #25d366; color: #fff; text-decoration: none; padding: 8px; text-align: center; border-radius: 5px; font-weight: bold; }
 
-        .lang-btn {
-            background: none;
-            border: none;
-            color: #aaaaaa;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 4px 8px;
-            font-size: 1rem;
-        }
-
-        .lang-btn.active {
-            color: #007bff;
-            text-decoration: underline;
-        }
-
-        /* القسم الرئيسي Hero */
-        .hero {
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('akram.jpg.jpg') center/cover no-repeat;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: #cccccc;
-            margin-bottom: 25px;
-            max-width: 500px;
-        }
-
-        .btn-main {
-            background-color: #007bff;
-            color: white;
-            padding: 15px 35px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
-        }
-
-        /* النافذة المنبثقة Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-card {
-            background: #181818;
-            border: 1px solid #333;
-            border-radius: 15px;
-            padding: 30px 20px;
-            max-width: 400px;
-            width: 100%;
-            position: relative;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            color: #ffffff;
-            font-size: 2rem;
-            cursor: pointer;
-        }
-
-        .select-box {
-            width: 100%;
-            padding: 12px;
-            background: #222222;
-            color: #ffffff;
-            border: 1px solid #444444;
-            border-radius: 8px;
-            font-size: 1rem;
-            margin: 20px 0;
-        }
-
-        .btn-action {
-            display: block;
-            width: 100%;
-            background: #25d366;
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* قسم العروض (مخفي في البداية) */
-        #offres-section {
-            display: none;
-            padding: 50px 20px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            margin-bottom: 30px;
-            font-size: 1.8rem;
-            border-bottom: 3px solid #007bff;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .offer-card {
-            background: #161616;
-            border: 1px solid #2a2a2a;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        body.rtl .offer-card {
-            text-align: right;
-        }
-
-        .offer-card h3 {
-            font-size: 1.3rem;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #25d366;
-            margin-bottom: 15px;
-        }
-
-        .offer-features {
-            list-style: none;
-            margin-bottom: 20px;
-        }
-
-        .offer-features li {
-            color: #dddddd;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-        .btn-choisir {
-            display: block;
-            background: #25d366;
-            color: white;
-            text-align: center;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* قسم لماذا AK SPORT */
-        .why-section {
-            padding: 50px 20px;
-            background: #111111;
-        }
-
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 15px;
-            max-width: 800px;
-            margin: 20px auto 0 auto;
-        }
-
-        .why-card {
-            background: #181818;
-            border: 1px solid #2a2a2a;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: left;
-        }
-
-        body.rtl .why-card {
-            text-align: right;
-        }
-
-        .why-card h4 {
-            color: #007bff;
-            margin-bottom: 8px;
-        }
-
-        .why-card p {
-            color: #cccccc;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
+        /* لماذا نحن */
+        .why { background: #050505; padding: 30px 20px; }
+        .why-card { background: #111; padding: 12px; border-radius: 6px; margin-bottom: 10px; text-align: left; }
+        body.rtl .why-card { text-align: right; }
+        .why-card h4 { color: #007bff; margin-bottom: 4px; }
+        .why-card p { font-size: 12px; color: #aaa; }
     </style>
 </head>
-<body id="body-tag">
+<body id="b">
 
-    <!-- شريط اللغات -->
-    <div class="lang-switch">
-        <button class="lang-btn active" id="btn-fr" onclick="changeLanguage('fr')">FR</button> | 
-        <button class="lang-btn" id="btn-ar" onclick="changeLanguage('ar')">عربي</button> | 
-        <button class="lang-btn" id="btn-en" onclick="changeLanguage('en')">EN</button>
+    <!-- أزرار اللغات -->
+    <div class="lang-bar">
+        <button class="lang-btn active" id="l-fr" onclick="setL('fr')">FR</button> |
+        <button class="lang-btn" id="l-ar" onclick="setL('ar')">عربي</button> |
+        <button class="lang-btn" id="l-en" onclick="setL('en')">EN</button>
     </div>
 
-    <!-- واجهة الدخول -->
-    <header class="hero">
+    <!-- الواجهة الرئيسية -->
+    <div class="hero">
         <h1>BUILD YOUR POWER</h1>
-        <p id="hero-sub">Entraînez-vous avec le Coach Akram & atteignez vos objectifs physiquement et mentalement.</p>
-        <button class="btn-main" id="btn-commencer" onclick="openStartModal()">Commencer</button>
-    </header>
+        <p id="sub">Entraînez-vous avec le Coach Akram & atteignez vos objectifs physiquement et mentalement.</p>
+        <button class="btn-main" id="btn-start" onclick="openM()">Commencer</button>
+    </div>
 
-    <!-- النافذة المنبثقة عند الضغط على Commencer -->
-    <div class="modal-overlay" id="myModal">
-        <div class="modal-card">
-            <span class="close-modal" onclick="closeStartModal()">&times;</span>
-            <h3 id="modal-title">Choisissez votre exercice Calisthenics :</h3>
-            
-            <select class="select-box">
+    <!-- النافذة المنبثقة -->
+    <div id="modal">
+        <div class="modal-body">
+            <span class="close-btn" onclick="closeM()">&times;</span>
+            <h3 id="m-title" style="font-size: 16px;">Choisissez votre exercice Calisthenics :</h3>
+            <select>
                 <option>Pull up (Traction)</option>
                 <option>Muscle up</option>
                 <option>Dips</option>
                 <option>Handstand (Équilibre)</option>
                 <option>Planche</option>
                 <option>Front Lever</option>
-                <option>Autre / Général</option>
             </select>
-
-            <button class="btn-action" id="btn-voir-offres" onclick="showOffresSection()">Voir les offres</button>
+            <button class="btn-green" id="btn-show" onclick="showO()">Voir les offres</button>
         </div>
     </div>
 
-    <!-- قسم العروض (مخفي حتى يتم الضغط على Voir les offres) -->
-    <section id="offres-section">
-        <h2 class="section-title" id="title-offres">Nos offres</h2>
-
-        <!-- العرض 1 -->
-        <div class="offer-card">
+    <!-- قسم العروض -->
+    <div id="offres">
+        <h2 id="t-off" style="margin-bottom: 15px;">Nos offres</h2>
+        
+        <div class="card">
             <h3 id="o1-t">💪 Offre 1 : Programme Simple</h3>
             <div class="price">2500 DA</div>
-            <ul class="offer-features">
+            <ul>
                 <li id="o1-1">✓ Programme 100% personnalisé</li>
                 <li id="o1-2">✓ Adapté à votre niveau actuel</li>
                 <li id="o1-3">✓ Suivi du programme</li>
             </ul>
-            <a href="https://wa.me/2130656121799?text=Salut%20j%27ai%20choisi%20xe%20offre%20!" class="btn-choisir" id="b1">Choisir</a>
+            <a href="https://wa.me/2130656121799" class="btn-buy" id="b1">Choisir</a>
         </div>
 
-        <!-- العرض 2 -->
-        <div class="offer-card">
+        <div class="card">
             <h3 id="o2-t">🔥 Offre 2 : Programme + Suivi WhatsApp</h3>
             <div class="price">4500 DA</div>
-            <ul class="offer-features">
+            <ul>
                 <li id="o2-1">✓ Programme personnalisé</li>
-                <li id="o2-2">✓ Suivi et répondre aux messages et aux questions qui se pose</li>
+                <li id="o2-2">✓ Suivi et répondre aux messages/questions</li>
                 <li id="o2-3">✓ Motivation et accompagnement</li>
             </ul>
-            <a href="https://wa.me/2130656121799?text=Salut%20j%27ai%20choisi%20xe%20offre%20!" class="btn-choisir" id="b2">Choisir</a>
+            <a href="https://wa.me/2130656121799" class="btn-buy" id="b2">Choisir</a>
         </div>
 
-        <!-- العرض 3 -->
-        <div class="offer-card">
+        <div class="card">
             <h3 id="o3-t">🏆 Offre 3 : Programme + Suivi Alimentaire</h3>
             <div class="price">6000 DA</div>
-            <ul class="offer-features">
+            <ul>
                 <li id="o3-1">✓ Programme personnalisé</li>
-                <li id="o3-2">✓ Suivi régulièrement sur WhatsApp (+2130656121799)</li>
-                <li id="o3-3">✓ Un programme alimentaire quand c'est pour une meilleur récupération</li>
+                <li id="o3-2">✓ Suivi régulier sur WhatsApp</li>
+                <li id="o3-3">✓ Programme alimentaire pour meilleure récupération</li>
             </ul>
-            <a href="https://wa.me/2130656121799?text=Salut%20j%27ai%20choisi%20xe%20offre%20!" class="btn-choisir" id="b3">Choisir</a>
+            <a href="https://wa.me/2130656121799" class="btn-buy" id="b3">Choisir</a>
         </div>
-    </section>
+    </div>
 
-    <!-- قسم لماذا اختيار AK SPORT -->
-    <section class="why-section">
-        <h2 class="section-title" id="title-why">Pourquoi choisir AK SPORT ?</h2>
-        
-        <div class="why-grid">
-            <div class="why-card">
-                <h4 id="w1-t">🏅 Champion d'Algérie & Coach Pro</h4>
-                <p id="w1-d">Entraînez-vous avec un coach professionnel, champion d'Algérie avec des années d'expérience.</p>
-            </div>
-            <div class="why-card">
-                <h4 id="w2-t">⚡ Niveau Mondial & Performance</h4>
-                <p id="w2-d">Expérience avec de nombreux athlètes de niveau mondial pour un performance optimale et un entraînement efficace.</p>
-            </div>
-            <div class="why-card">
-                <h4 id="w3-t">🎯 Forme Physique & Adaptation au Temps</h4>
-                <p id="w3-d">Développement complet de la condition physique selon votre temps disponible.</p>
-            </div>
-            <div class="why-card">
-                <h4 id="w4-t">📜 Respect des Normes & Règles</h4>
-                <p id="w4-d">Respect de tous les critères et règles du sport pour progresser en toute sécurité.</p>
-            </div>
+    <!-- قسم لماذا AK SPORT -->
+    <div class="why">
+        <h3 id="t-why" style="margin-bottom: 15px;">Pourquoi choisir AK SPORT ?</h3>
+        <div class="why-card">
+            <h4 id="w1-t">🏅 Champion d'Algérie & Coach Pro</h4>
+            <p id="w1-d">Entraînez-vous avec un coach professionnel et champion d'Algérie.</p>
         </div>
-    </section>
+        <div class="why-card">
+            <h4 id="w2-t">⚡ Niveau Mondial & Performance</h4>
+            <p id="w2-d">Expérience avec de nombreux athlètes de niveau mondial.</p>
+        </div>
+        <div class="why-card">
+            <h4 id="w3-t">🎯 Forme Physique</h4>
+            <p id="w3-d">Développement complet selon votre temps disponible.</p>
+        </div>
+        <div class="why-card">
+            <h4 id="w4-t">📜 Respect des Normes</h4>
+            <p id="w4-d">Respect de tous les critères pour progresser en toute sécurité.</p>
+        </div>
+    </div>
 
-    <!-- السكريبت المسؤول عن البرمجة -->
     <script>
-        function openStartModal() {
-            document.getElementById('myModal').style.display = 'flex';
+        function openM() {
+            document.getElementById('modal').style.display = 'flex';
+        }
+        function closeM() {
+            document.getElementById('modal').style.display = 'none';
+        }
+        function showO() {
+            closeM();
+            var o = document.getElementById('offres');
+            o.style.display = 'block';
+            o.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function closeStartModal() {
-            document.getElementById('myModal').style.display = 'none';
-        }
+        function setL(lang) {
+            document.getElementById('l-fr').classList.remove('active');
+            document.getElementById('l-ar').classList.remove('active');
+            document.getElementById('l-en').classList.remove('active');
+            document.getElementById('l-' + lang).classList.add('active');
 
-        function showOffresSection() {
-            closeStartModal();
-            var section = document.getElementById('offres-section');
-            section.style.display = 'block';
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function changeLanguage(lang) {
-            // تحديث حالة الأزرار
-            document.getElementById('btn-fr').classList.remove('active');
-            document.getElementById('btn-ar').classList.remove('active');
-            document.getElementById('btn-en').classList.remove('active');
-            document.getElementById('btn-' + lang).classList.add('active');
+            var body = document.getElementById('b');
 
             if (lang === 'ar') {
-                document.getElementById('body-tag').className = 'rtl';
-                document.getElementById('body-tag').dir = 'rtl';
-
-                document.getElementById('hero-sub').innerText = 'تدرب مع الكوتش أكرم وحقق أهدافك بدنيًا وذهنيًا.';
-                document.getElementById('btn-commencer').innerText = 'ابدأ الآن';
-                document.getElementById('modal-title').innerText = 'اختر تمرين الكاليستينيكس الخاص بك:';
-                document.getElementById('btn-voir-offres').innerText = 'عرض العروض';
-
-                document.getElementById('title-offres').innerText = 'عروضنا';
+                body.className = 'rtl';
+                body.dir = 'rtl';
+                document.getElementById('sub').innerText = 'تدرب مع الكوتش أكرم وحقق أهدافك بدنيًا وذهنيًا.';
+                document.getElementById('btn-start').innerText = 'ابدأ الآن';
+                document.getElementById('m-title').innerText = 'اختر تمرين الكاليستينيكس الخاص بك:';
+                document.getElementById('btn-show').innerText = 'عرض العروض';
+                document.getElementById('t-off').innerText = 'عروضنا';
+                
                 document.getElementById('o1-t').innerText = '💪 العرض 1 : برنامج بسيط';
                 document.getElementById('o1-1').innerText = '✓ برنامج مخصص 100%';
                 document.getElementById('o1-2').innerText = '✓ مناسب لمستواك الحالي';
                 document.getElementById('o1-3').innerText = '✓ متابعة للبرنامج';
 
-                document.getElementById('o2-t').innerText = '🔥 العرض 2 : برنامج + متابعة عبر الواتساب';
+                document.getElementById('o2-t').innerText = '🔥 العرض 2 : برنامج + متابعة واتساب';
                 document.getElementById('o2-1').innerText = '✓ برنامج تدريبي مخصص';
-                document.getElementById('o2-2').innerText = '✓ متابعة والرد على الرسائل والأسئلة المطروحة';
+                document.getElementById('o2-2').innerText = '✓ متابعة والرد على الأسئلة';
                 document.getElementById('o2-3').innerText = '✓ تحفيز ومرافقة مستمرة';
 
                 document.getElementById('o3-t').innerText = '🏆 العرض 3 : برنامج + متابعة غذائية';
                 document.getElementById('o3-1').innerText = '✓ برنامج تدريبي مخصص';
-                document.getElementById('o3-2').innerText = '✓ متابعة منتظمة عبر الواتساب (+2130656121799)';
-                document.getElementById('o3-3').innerText = '✓ برنامج غذائي مخصص لتعافي أفضل';
+                document.getElementById('o3-2').innerText = '✓ متابعة منتظمة عبر الواتساب';
+                document.getElementById('o3-3').innerText = '✓ برنامج غذائي لتعافي أفضل';
 
                 document.getElementById('b1').innerText = 'اختيار';
                 document.getElementById('b2').innerText = 'اختيار';
                 document.getElementById('b3').innerText = 'اختيار';
 
-                document.getElementById('title-why').innerText = 'لماذا عليك اختيار AK SPORT ؟';
+                document.getElementById('t-why').innerText = 'لماذا عليك اختيار AK SPORT ؟';
                 document.getElementById('w1-t').innerText = '🏅 بطل الجزائر ومدرب محترف';
-                document.getElementById('w1-d').innerText = 'تدرب تحت إشراف مدرب محترف وبطل الجزائر بخبرة سنوات طويلة في الرياضة.';
-                document.getElementById('w2-t').innerText = '⚡ مستوى عالمي وأداء خفيف';
-                document.getElementById('w2-d').innerText = 'خبرة تعامل مع العديد من الرياضيين ذوي المستوى العالمي لضمان أفضل نتيجة وأداء خفيف.';
-                document.getElementById('w3-t').innerText = '🎯 تدرب جيد ولياقة بدنية';
-                document.getElementById('w3-d').innerText = 'احصل على لياقة بدنية عالية حسب الوقت الخاص بك وبأعلى جودة.';
+                document.getElementById('w1-d').innerText = 'تدرب تحت إشراف مدرب محترف وبطل الجزائر.';
+                document.getElementById('w2-t').innerText = '⚡ مستوى عالمي والأداء';
+                document.getElementById('w2-d').innerText = 'خبرة تعامل مع أفضل الرياضيين ذوي المستوى العالمي.';
+                document.getElementById('w3-t').innerText = '🎯 لياقة بدنية';
+                document.getElementById('w3-d').innerText = 'احصل على لياقة بدنية حسب وقتك الخاص.';
                 document.getElementById('w4-t').innerText = '📜 احترام المعايير والقوانين';
-                document.getElementById('w4-d').innerText = 'احترام كامل لكافة معايير وقوانين الرياضة لضمان تطور آمن وبنّاء.';
+                document.getElementById('w4-d').innerText = 'احترام كامل لقوانين الرياضة لضمان تطور آمن.';
 
             } else if (lang === 'en') {
-                document.getElementById('body-tag').className = '';
-                document.getElementById('body-tag').dir = 'ltr';
+                body.className = '';
+                body.dir = 'ltr';
+                document.getElementById('sub').innerText = 'Train with Coach Akram & reach your goals physically and mentally.';
+                document.getElementById('btn-start').innerText = 'Start Now';
+                document.getElementById('m-title').innerText = 'Choose your Calisthenics exercise:';
+                document.getElementById('btn-show').innerText = 'View Offers';
+                document.getElementById('t-off').innerText = 'Our Offers';
 
-                document.getElementById('hero-sub').innerText = 'Train with Coach Akram & reach your goals physically and mentally.';
-                document.getElementById('btn-commencer').innerText = 'Start Now';
-                document.getElementById('modal-title').innerText = 'Choose your Calisthenics exercise:';
-                document.getElementById('btn-voir-offres').innerText = 'View Offers';
-
-                document.getElementById('title-offres').innerText = 'Our Offers';
                 document.getElementById('o1-t').innerText = '💪 Offer 1 : Basic Program';
                 document.getElementById('o1-1').innerText = '✓ 100% Customized program';
-                document.getElementById('o1-2').innerText = '✓ Adapted to your current level';
+                document.getElementById('o1-2').innerText = '✓ Adapted to current level';
                 document.getElementById('o1-3').innerText = '✓ Program tracking';
 
-                document.getElementById('o2-t').innerText = '🔥 Offer 2 : Program + WhatsApp Coaching';
+                document.getElementById('o2-t').innerText = '🔥 Offer 2 : Program + WhatsApp';
                 document.getElementById('o2-1').innerText = '✓ Customized program';
-                document.getElementById('o2-2').innerText = '✓ Support and answers to messages & questions';
-                document.getElementById('o2-3').innerText = '✓ Motivation and guidance';
+                document.getElementById('o2-2').innerText = '✓ Support & answer questions';
+                document.getElementById('o2-3').innerText = '✓ Motivation & guidance';
 
-                document.getElementById('o3-t').innerText = '🏆 Offer 3 : Program + Nutrition Coaching';
+                document.getElementById('o3-t').innerText = '🏆 Offer 3 : Program + Nutrition';
                 document.getElementById('o3-1').innerText = '✓ Customized program';
-                document.getElementById('o3-2').innerText = '✓ Regular WhatsApp tracking (+2130656121799)';
-                document.getElementById('o3-3').innerText = '✓ Nutrition program for better recovery';
+                document.getElementById('o3-2').innerText = '✓ Regular WhatsApp tracking';
+                document.getElementById('o3-3').innerText = '✓ Meal plan for recovery';
 
                 document.getElementById('b1').innerText = 'Choose';
                 document.getElementById('b2').innerText = 'Choose';
                 document.getElementById('b3').innerText = 'Choose';
 
-                document.getElementById('title-why').innerText = 'Why Choose AK SPORT?';
+                document.getElementById('t-why').innerText = 'Why Choose AK SPORT?';
                 document.getElementById('w1-t').innerText = '🏅 Algerian Champion & Pro Coach';
-                document.getElementById('w1-d').innerText = 'Train with a professional coach and Algerian champion with years of experience.';
+                document.getElementById('w1-d').innerText = 'Train with a pro coach and Algerian champion.';
                 document.getElementById('w2-t').innerText = '⚡ World Class Level';
-                document.getElementById('w2-d').innerText = 'Experience with many world-class athletes ensuring lightweight and top performance.';
-                document.getElementById('w3-t').innerText = '🎯 Good Training & Physical Fitness';
-                document.getElementById('w3-d').innerText = 'Build great physical fitness tailored according to your available time.';
-                document.getElementById('w4-t').innerText = '📜 Respect for Sports Standards';
-                document.getElementById('w4-d').innerText = 'Full compliance with all athletic rules and standards.';
+                document.getElementById('w2-d').innerText = 'Experience with top world athletes.';
+                document.getElementById('w3-t').innerText = '🎯 Physical Fitness';
+                document.getElementById('w3-d').innerText = 'Build fitness tailored to your time.';
+                document.getElementById('w4-t').innerText = '📜 Sports Standards';
+                document.getElementById('w4-d').innerText = 'Full compliance with safety standards.';
 
             } else {
-                // الفرنسية FR
-                document.getElementById('body-tag').className = '';
-                document.getElementById('body-tag').dir = 'ltr';
+                body.className = '';
+                body.dir = 'ltr';
+                document.getElementById('sub').innerText = 'Entraînez-vous avec le Coach Akram & atteignez vos objectifs physiquement et mentalement.';
+                document.getElementById('btn-start').innerText = 'Commencer';
+                document.getElementById('m-title').innerText = 'Choisissez votre exercice Calisthenics :';
+                document.getElementById('btn-show').innerText = 'Voir les offres';
+                document.getElementById('t-off').innerText = 'Nos offres';
 
-                document.getElementById('hero-sub').innerText = 'Entraînez-vous avec le Coach Akram & atteignez vos objectifs physiquement et mentalement.';
-                document.getElementById('btn-commencer').innerText = 'Commencer';
-                document.getElementById('modal-title').innerText = 'Choisissez votre exercice Calisthenics :';
-                document.getElementById('btn-voir-offres').innerText = 'Voir les offres';
-
-                document.getElementById('title-offres').innerText = 'Nos offres';
                 document.getElementById('o1-t').innerText = '💪 Offre 1 : Programme Simple';
                 document.getElementById('o1-1').innerText = '✓ Programme 100% personnalisé';
                 document.getElementById('o1-2').innerText = '✓ Adapté à votre niveau actuel';
@@ -466,18 +247,30 @@
 
                 document.getElementById('o2-t').innerText = '🔥 Offre 2 : Programme + Suivi WhatsApp';
                 document.getElementById('o2-1').innerText = '✓ Programme personnalisé';
-                document.getElementById('o2-2').innerText = '✓ Suivi et répondre aux messages et aux questions qui se pose';
+                document.getElementById('o2-2').innerText = '✓ Suivi et répondre aux messages/questions';
                 document.getElementById('o2-3').innerText = '✓ Motivation et accompagnement';
 
                 document.getElementById('o3-t').innerText = '🏆 Offre 3 : Programme + Suivi Alimentaire';
                 document.getElementById('o3-1').innerText = '✓ Programme personnalisé';
-                document.getElementById('o3-2').innerText = '✓ Suivi régulièrement sur WhatsApp (+2130656121799)';
-                document.getElementById('o3-3').innerText = '✓ Un programme alimentaire quand c\'est pour une meilleur récupération';
+                document.getElementById('o3-2').innerText = '✓ Suivi régulier sur WhatsApp';
+                document.getElementById('o3-3').innerText = '✓ Programme alimentaire pour meilleure récupération';
 
                 document.getElementById('b1').innerText = 'Choisir';
                 document.getElementById('b2').innerText = 'Choisir';
                 document.getElementById('b3').innerText = 'Choisir';
 
-                document.getElementById('title-why').innerText = 'Pourquoi choisir AK SPORT ?';
+                document.getElementById('t-why').innerText = 'Pourquoi choisir AK SPORT ?';
                 document.getElementById('w1-t').innerText = '🏅 Champion d\'Algérie & Coach Pro';
-                document.getElementById('w1-d').innerText = 'Entraînez-vous avec un coach professionn
+                document.getElementById('w1-d').innerText = 'Entraînez-vous avec un coach professionnel et champion d\'Algérie.';
+                document.getElementById('w2-t').innerText = '⚡ Niveau Mondial & Performance';
+                document.getElementById('w2-d').innerText = 'Expérience avec de nombreux athlètes de niveau mondial.';
+                document.getElementById('w3-t').innerText = '🎯 Forme Physique';
+                document.getElementById('w3-d').innerText = 'Développement complet selon votre temps disponible.';
+                document.getElementById('w4-t').innerText = '📜 Respect des Normes';
+                document.getElementById('w4-d').innerText = 'Respect de tous les critères pour progresser en toute sécurité.';
+            }
+        }
+    </script>
+</body>
+</html>
+
