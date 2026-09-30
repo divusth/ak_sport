@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -42,7 +42,7 @@
         .price { color: #25d366; font-size: 18px; font-weight: bold; margin: 5px 0; }
         ul { list-style: none; margin-bottom: 10px; }
         li { font-size: 14px; color: #ddd; margin-bottom: 4px; }
-        .btn-buy { display: block; background: #25d366; color: #fff; text-decoration: none; padding: 8px; text-align: center; border-radius: 5px; font-weight: bold; }
+        .btn-buy { display: block; background: #25d366; color: #fff; text-decoration: none; padding: 8px; text-align: center; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
         /* لماذا نحن */
         .why { background: #050505; padding: 30px 20px; }
@@ -73,13 +73,14 @@
         <div class="modal-body">
             <span class="close-btn" onclick="closeM()">&times;</span>
             <h3 id="m-title" style="font-size: 16px;">Choisissez votre exercice Calisthenics :</h3>
-            <select>
-                <option>Pull up (Traction)</option>
-                <option>Muscle up</option>
-                <option>Dips</option>
-                <option>Handstand (Équilibre)</option>
-                <option>Planche</option>
-                <option>Front Lever</option>
+            <!-- أضفنا id="exerciseSelect" هنا -->
+            <select id="exerciseSelect">
+                <option value="Pull up (Traction)">Pull up (Traction)</option>
+                <option value="Muscle up">Muscle up</option>
+                <option value="Dips">Dips</option>
+                <option value="Handstand (Équilibre)">Handstand (Équilibre)</option>
+                <option value="Planche">Planche</option>
+                <option value="Front Lever">Front Lever</option>
             </select>
             <button class="btn-green" id="btn-show" onclick="showO()">Voir les offres</button>
         </div>
@@ -97,7 +98,8 @@
                 <li id="o1-2">✓ Adapté à votre niveau actuel</li>
                 <li id="o1-3">✓ Suivi du programme</li>
             </ul>
-            <a href="https://wa.me/2130656121799" class="btn-buy" id="b1">Choisir</a>
+            <!-- أضفنا دالة مرجعية ترسل اسم العرض عند الضغط -->
+            <a onclick="sendWhatsApp('Offre 1 : Programme Simple (2500 DA)')" class="btn-buy" id="b1">Choisir</a>
         </div>
 
         <div class="card">
@@ -108,7 +110,7 @@
                 <li id="o2-2">✓ Suivi et répondre aux messages/questions</li>
                 <li id="o2-3">✓ Motivation et accompagnement</li>
             </ul>
-            <a href="https://wa.me/2130656121799" class="btn-buy" id="b2">Choisir</a>
+            <a onclick="sendWhatsApp('Offre 2 : Programme + Suivi WhatsApp (4500 DA)')" class="btn-buy" id="b2">Choisir</a>
         </div>
 
         <div class="card">
@@ -119,11 +121,11 @@
                 <li id="o3-2">✓ Suivi régulier sur WhatsApp</li>
                 <li id="o3-3">✓ Programme alimentaire pour meilleure récupération</li>
             </ul>
-            <a href="https://wa.me/2130656121799" class="btn-buy" id="b3">Choisir</a>
+            <a onclick="sendWhatsApp('Offre 3 : Programme + Suivi Alimentaire (6000 DA)')" class="btn-buy" id="b3">Choisir</a>
         </div>
     </div>
 
-    <!-- قسم لماذا AK SPORT -->
+    <!-- لماذا AK SPORT -->
     <div class="why">
         <h3 id="t-why" style="margin-bottom: 15px;">Pourquoi choisir AK SPORT ?</h3>
         <div class="why-card">
@@ -156,6 +158,22 @@
             var o = document.getElementById('offres');
             o.style.display = 'block';
             o.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // دالة لإرسال الرسالة إلى الواتساب مع التمرين والعرض المختار
+        function sendWhatsApp(offerName) {
+            var selectElement = document.getElementById('exerciseSelect');
+            var selectedExercise = selectElement.options[selectElement.selectedIndex].value;
+            
+            // صياغة الرسالة كما طلبتها
+            var message = "Bonjour j'ai choisi " + offerName + " avec une base sur ce exercice : " + selectedExercise;
+            
+            // رابط الواتساب مع تشفير النص (encodeURIComponent لكي تدعم المسافات والأحرف)
+            var phone = "2130656121799"; 
+            var url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+            
+            // فتح الواتساب
+            window.open(url, '_blank');
         }
 
         function setL(lang) {
