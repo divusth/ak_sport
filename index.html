@@ -11,6 +11,10 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth; /* تمرير سلس عند الضغط على الزر */
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #0b0b0b;
@@ -52,21 +56,22 @@
             text-decoration: none;
             font-weight: bold;
             font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
         }
 
         .container {
-            padding: 40px 20px;
+            padding: 50px 20px;
             max-width: 600px;
             margin: 0 auto;
         }
 
         .section-title {
-            margin-bottom: 20px;
-            font-size: 1.5rem;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
             text-transform: uppercase;
-            border-bottom: 2px solid #007bff;
+            border-bottom: 3px solid #007bff;
             display: inline-block;
-            padding-bottom: 5px;
+            padding-bottom: 8px;
         }
 
         .btn-option {
@@ -80,6 +85,8 @@
             border-radius: 12px;
             text-decoration: none;
             font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
     </style>
 </head>
