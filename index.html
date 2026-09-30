@@ -12,23 +12,20 @@
         }
 
         body {
-            margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #0b0b0b;
             color: white;
             text-align: center;
         }
 
-        /* خلفية الهيدر باستخدام صورة الكوتش بشكل احترافي */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)), url('akram.jpg.jpg') no-repeat center center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)), url('akram.jpg.jpg') no-repeat center center/cover;
             min-height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            box-shadow: inset 0 -50px 50px #0b0b0b;
         }
 
         .hero h1 {
@@ -36,7 +33,6 @@
             font-weight: 900;
             letter-spacing: 2px;
             margin-bottom: 15px;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
             text-transform: uppercase;
         }
 
@@ -45,7 +41,6 @@
             color: #e0e0e0;
             margin-bottom: 25px;
             max-width: 500px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
         .btn-main {
@@ -57,12 +52,6 @@
             text-decoration: none;
             font-weight: bold;
             font-size: 1.1rem;
-            box-shadow: 0 5px 20px rgba(0, 123, 255, 0.4);
-            transition: transform 0.2s;
-        }
-
-        .btn-main:active {
-            transform: scale(0.96);
         }
 
         .container {
@@ -90,26 +79,20 @@
             margin: 12px 0;
             border-radius: 12px;
             text-decoration: none;
-            text-align: center;
             font-weight: bold;
-            font-size: 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body>
 
-    <!-- قسم الهيدر الرئيسي مع خلفية الصورة -->
     <header class="hero">
         <h1>BUILD YOUR POWER</h1>
         <p>Entraînez-vous avec le Coach Akram & atteignez vos objectifs physiquement et mentalement.</p>
         <a href="#services" class="btn-main">Commencer maintenant</a>
     </header>
 
-    <!-- باقي الأقسام والاختيارات -->
     <main class="container" id="services">
         <h2 class="section-title">NOS PROGRAMMES</h2>
-        
         <a href="#programmes" class="btn-option">💪 Programmes d'entraînement</a>
         <a href="#nutrition" class="btn-option">🥗 Plan Nutritionnel</a>
         <a href="#contact" class="btn-option" style="background: #25d366; color: white; border: none;">💬 Contacter sur WhatsApp</a>
