@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -12,11 +12,11 @@
         .lang-btn { background: none; border: none; color: #fff; font-weight: bold; cursor: pointer; padding: 2px 5px; }
         .lang-btn.active { color: #007bff; }
 
-        /* الواجهة الرئيسية مع ربط خلفيتها بالصورة akram.jpg.jpg */
+        /* الواجهة الرئيسية */
         .hero { 
             padding: 100px 20px 60px; 
             background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('akram.jpg.jpg') center/cover no-repeat;
-            min-height: 80vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -35,8 +35,11 @@
         select { width: 100%; padding: 10px; margin: 15px 0; background: #333; color: #fff; border: none; border-radius: 5px; }
         .btn-green { background: #25d366; color: #fff; border: none; padding: 10px; width: 100%; font-weight: bold; border-radius: 5px; cursor: pointer; }
 
+        /* قسم المحتوى الذي سيظهر بعد الاختيار (العروض + لماذا نحن) */
+        #main-content { display: none; }
+
         /* قسم العروض */
-        #offres { display: none; padding: 40px 20px; max-width: 500px; margin: 0 auto; }
+        #offres { padding: 40px 20px 20px; max-width: 500px; margin: 0 auto; }
         .card { background: #161616; border: 1px solid #333; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: left; }
         body.rtl .card { text-align: right; }
         .price { color: #25d366; font-size: 18px; font-weight: bold; margin: 5px 0; }
@@ -45,7 +48,7 @@
         .btn-buy { display: block; background: #25d366; color: #fff; text-decoration: none; padding: 8px; text-align: center; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
         /* لماذا نحن */
-        .why { background: #050505; padding: 30px 20px; }
+        .why { background: #050505; padding: 30px 20px; max-width: 500px; margin: 0 auto; border-radius: 10px; margin-bottom: 40px; }
         .why-card { background: #111; padding: 12px; border-radius: 6px; margin-bottom: 10px; text-align: left; }
         body.rtl .why-card { text-align: right; }
         .why-card h4 { color: #007bff; margin-bottom: 4px; }
@@ -61,19 +64,18 @@
         <button class="lang-btn" id="l-en" onclick="setL('en')">EN</button>
     </div>
 
-    <!-- الواجهة الرئيسية -->
-    <div class="hero">
+    <!-- الواجهة الرئيسية (تختفي عند اختيار التمرين) -->
+    <div class="hero" id="heroSection">
         <h1>BUILD YOUR POWER</h1>
         <p id="sub">Entraînez-vous avec le Coach Akram & atteignez vos objectifs physiquement et mentalement.</p>
         <button class="btn-main" id="btn-start" onclick="openM()">Commencer</button>
     </div>
 
-    <!-- النافذة المنبثقة -->
+    <!-- النافذة المنبثقة لاختيار التمرين -->
     <div id="modal">
         <div class="modal-body">
             <span class="close-btn" onclick="closeM()">&times;</span>
             <h3 id="m-title" style="font-size: 16px;">Choisissez votre exercice Calisthenics :</h3>
-            <!-- أضفنا id="exerciseSelect" هنا -->
             <select id="exerciseSelect">
                 <option value="Pull up (Traction)">Pull up (Traction)</option>
                 <option value="Muscle up">Muscle up</option>
@@ -86,63 +88,65 @@
         </div>
     </div>
 
-    <!-- قسم العروض -->
-    <div id="offres">
-        <h2 id="t-off" style="margin-bottom: 15px;">Nos offres</h2>
-        
-        <div class="card">
-            <h3 id="o1-t">💪 Offre 1 : Programme Simple</h3>
-            <div class="price">2500 DA</div>
-            <ul>
-                <li id="o1-1">✓ Programme 100% personnalisé</li>
-                <li id="o1-2">✓ Adapté à votre niveau actuel</li>
-                <li id="o1-3">✓ Suivi du programme</li>
-            </ul>
-            <!-- أضفنا دالة مرجعية ترسل اسم العرض عند الضغط -->
-            <a onclick="sendWhatsApp('Offre 1 : Programme Simple (2500 DA)')" class="btn-buy" id="b1">Choisir</a>
+    <!-- القسم الذي يضم العروض وقسم لماذا نحن (يظهران معاً باحترافية) -->
+    <div id="main-content">
+        <!-- قسم العروض -->
+        <div id="offres">
+            <h2 id="t-off" style="margin-bottom: 15px;">Nos offres</h2>
+            
+            <div class="card">
+                <h3 id="o1-t">💪 Offre 1 : Programme Simple</h3>
+                <div class="price">2500 DA</div>
+                <ul>
+                    <li id="o1-1">✓ Programme 100% personnalisé</li>
+                    <li id="o1-2">✓ Adapté à votre niveau actuel</li>
+                    <li id="o1-3">✓ Suivi du programme</li>
+                </ul>
+                <a onclick="sendWhatsApp('Offre 1 : Programme Simple (2500 DA)')" class="btn-buy" id="b1">Choisir</a>
+            </div>
+
+            <div class="card">
+                <h3 id="o2-t">🔥 Offre 2 : Programme + Suivi WhatsApp</h3>
+                <div class="price">4500 DA</div>
+                <ul>
+                    <li id="o2-1">✓ Programme personnalisé</li>
+                    <li id="o2-2">✓ Suivi et répondre aux messages/questions</li>
+                    <li id="o2-3">✓ Motivation et accompagnement</li>
+                </ul>
+                <a onclick="sendWhatsApp('Offre 2 : Programme + Suivi WhatsApp (4500 DA)')" class="btn-buy" id="b2">Choisir</a>
+            </div>
+
+            <div class="card">
+                <h3 id="o3-t">🏆 Offre 3 : Programme + Suivi Alimentaire</h3>
+                <div class="price">6000 DA</div>
+                <ul>
+                    <li id="o3-1">✓ Programme personnalisé</li>
+                    <li id="o3-2">✓ Suivi régulier sur WhatsApp</li>
+                    <li id="o3-3">✓ Programme alimentaire pour meilleure récupération</li>
+                </ul>
+                <a onclick="sendWhatsApp('Offre 3 : Programme + Suivi Alimentaire (6000 DA)')" class="btn-buy" id="b3">Choisir</a>
+            </div>
         </div>
 
-        <div class="card">
-            <h3 id="o2-t">🔥 Offre 2 : Programme + Suivi WhatsApp</h3>
-            <div class="price">4500 DA</div>
-            <ul>
-                <li id="o2-1">✓ Programme personnalisé</li>
-                <li id="o2-2">✓ Suivi et répondre aux messages/questions</li>
-                <li id="o2-3">✓ Motivation et accompagnement</li>
-            </ul>
-            <a onclick="sendWhatsApp('Offre 2 : Programme + Suivi WhatsApp (4500 DA)')" class="btn-buy" id="b2">Choisir</a>
-        </div>
-
-        <div class="card">
-            <h3 id="o3-t">🏆 Offre 3 : Programme + Suivi Alimentaire</h3>
-            <div class="price">6000 DA</div>
-            <ul>
-                <li id="o3-1">✓ Programme personnalisé</li>
-                <li id="o3-2">✓ Suivi régulier sur WhatsApp</li>
-                <li id="o3-3">✓ Programme alimentaire pour meilleure récupération</li>
-            </ul>
-            <a onclick="sendWhatsApp('Offre 3 : Programme + Suivi Alimentaire (6000 DA)')" class="btn-buy" id="b3">Choisir</a>
-        </div>
-    </div>
-
-    <!-- لماذا AK SPORT -->
-    <div class="why">
-        <h3 id="t-why" style="margin-bottom: 15px;">Pourquoi choisir AK SPORT ?</h3>
-        <div class="why-card">
-            <h4 id="w1-t">🏅 Champion d'Algérie & Coach Pro</h4>
-            <p id="w1-d">Entraînez-vous avec un coach professionnel et champion d'Algérie.</p>
-        </div>
-        <div class="why-card">
-            <h4 id="w2-t">⚡ Niveau Mondial & Performance</h4>
-            <p id="w2-d">Expérience avec de nombreux athlètes de niveau mondial.</p>
-        </div>
-        <div class="why-card">
-            <h4 id="w3-t">🎯 Forme Physique</h4>
-            <p id="w3-d">Développement complet selon votre temps disponible.</p>
-        </div>
-        <div class="why-card">
-            <h4 id="w4-t">📜 Respect des Normes</h4>
-            <p id="w4-d">Respect de tous les critères pour progresser en toute sécurité.</p>
+        <!-- لماذا AK SPORT -->
+        <div class="why">
+            <h3 id="t-why" style="margin-bottom: 15px;">Pourquoi choisir AK SPORT ?</h3>
+            <div class="why-card">
+                <h4 id="w1-t">🏅 Champion d'Algérie & Coach Pro</h4>
+                <p id="w1-d">Entraînez-vous avec un coach professionnel et champion d'Algérie.</p>
+            </div>
+            <div class="why-card">
+                <h4 id="w2-t">⚡ Niveau Mondial & Performance</h4>
+                <p id="w2-d">Expérience avec de nombreux athlètes de niveau mondial.</p>
+            </div>
+            <div class="why-card">
+                <h4 id="w3-t">🎯 Forme Physique</h4>
+                <p id="w3-d">Développement complet selon votre temps disponible.</p>
+            </div>
+            <div class="why-card">
+                <h4 id="w4-t">📜 Respect des Normes</h4>
+                <p id="w4-d">Respect de tous les critères pour progresser en toute sécurité.</p>
+            </div>
         </div>
     </div>
 
@@ -153,26 +157,25 @@
         function closeM() {
             document.getElementById('modal').style.display = 'none';
         }
+        
+        // عند الضغط على زر إظهار العروض: تختفي الواجهة الأولى وتظهر العروض وقسم لماذا نحن مباشرة
         function showO() {
             closeM();
-            var o = document.getElementById('offres');
-            o.style.display = 'block';
-            o.scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('heroSection').style.display = 'none'; // إخفاء الواجهة الرئيسية
+            document.getElementById('main-content').style.display = 'block'; // إظهار المحتوى الجديد
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // العودة لأعلى الصفحة بسلاسة
         }
 
-        // دالة لإرسال الرسالة إلى الواتساب مع التمرين والعرض المختار
+        // دالة إرسال الواتساب مع العرض والتمرين
         function sendWhatsApp(offerName) {
             var selectElement = document.getElementById('exerciseSelect');
             var selectedExercise = selectElement.options[selectElement.selectedIndex].value;
             
-            // صياغة الرسالة كما طلبتها
             var message = "Bonjour j'ai choisi " + offerName + " avec une base sur ce exercice : " + selectedExercise;
             
-            // رابط الواتساب مع تشفير النص (encodeURIComponent لكي تدعم المسافات والأحرف)
             var phone = "2130656121799"; 
             var url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
             
-            // فتح الواتساب
             window.open(url, '_blank');
         }
 
@@ -241,7 +244,7 @@
                 document.getElementById('o2-2').innerText = '✓ Support & answer questions';
                 document.getElementById('o2-3').innerText = '✓ Motivation & guidance';
 
-                document.getElementById('o3-t').innerText = '🏆 Offer 3 : Program + Nutrition';
+                document.getElementById('o3-t').innerText = '🏆 Offer 3 : Programme + Nutrition';
                 document.getElementById('o3-1').innerText = '✓ Customized program';
                 document.getElementById('o3-2').innerText = '✓ Regular WhatsApp tracking';
                 document.getElementById('o3-3').innerText = '✓ Meal plan for recovery';
