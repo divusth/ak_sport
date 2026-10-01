@@ -64,33 +64,30 @@
         <button class="lang-btn" id="l-en" onclick="setL('en')">EN</button>
     </div>
 
-    <!-- الواجهة الرئيسية (تختفي عند اختيار التمرين) -->
+    <!-- الواجهة الرئيسية -->
     <div class="hero" id="heroSection">
         <h1>BUILD YOUR POWER</h1>
         <p id="sub">Entraînez-vous avec le Coach Akram & atteignez vos objectifs physiquement et mentalement.</p>
         <button class="btn-main" id="btn-start" onclick="openM()">Commencer</button>
     </div>
 
-    <!-- النافذة المنبثقة لاختيار التمرين -->
+    <!-- النافذة المنبثقة لاختيار التخصص / الهدف -->
     <div id="modal">
         <div class="modal-body">
             <span class="close-btn" onclick="closeM()">&times;</span>
-            <h3 id="m-title" style="font-size: 16px;">Choisissez votre exercice Calisthenics :</h3>
+            <h3 id="m-title" style="font-size: 16px;">Choisissez votre objectif :</h3>
             <select id="exerciseSelect">
-                <option value="Pull up (Traction)">Pull up (Traction)</option>
-                <option value="Muscle up">Muscle up</option>
-                <option value="Dips">Dips</option>
-                <option value="Handstand (Équilibre)">Handstand (Équilibre)</option>
-                <option value="Planche">Planche</option>
-                <option value="Front Lever">Front Lever</option>
+                <option value="Endurance sets and reps">Endurance sets and reps</option>
+                <option value="Streetlifting">Streetlifting</option>
+                <option value="Préparation physique">Préparation physique</option>
+                <option value="Bodybuilding">Bodybuilding</option>
             </select>
             <button class="btn-green" id="btn-show" onclick="showO()">Voir les offres</button>
         </div>
     </div>
 
-    <!-- القسم الذي يضم العروض وقسم لماذا نحن (يظهران معاً باحترافية) -->
+    <!-- القسم الذي يضم العروض وقسم لماذا نحن -->
     <div id="main-content">
-        <!-- قسم العروض -->
         <div id="offres">
             <h2 id="t-off" style="margin-bottom: 15px;">Nos offres</h2>
             
@@ -158,22 +155,20 @@
             document.getElementById('modal').style.display = 'none';
         }
         
-        // عند الضغط على زر إظهار العروض: تختفي الواجهة الأولى وتظهر العروض وقسم لماذا نحن مباشرة
         function showO() {
             closeM();
-            document.getElementById('heroSection').style.display = 'none'; // إخفاء الواجهة الرئيسية
-            document.getElementById('main-content').style.display = 'block'; // إظهار المحتوى الجديد
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // العودة لأعلى الصفحة بسلاسة
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // دالة إرسال الواتساب مع العرض والتمرين
         function sendWhatsApp(offerName) {
             var selectElement = document.getElementById('exerciseSelect');
             var selectedExercise = selectElement.options[selectElement.selectedIndex].value;
             
-            var message = "Bonjour j'ai choisi " + offerName + " avec une base sur ce exercice : " + selectedExercise;
+            var message = "Bonjour j'ai choisi " + offerName + " pour l'objectif suivant : " + selectedExercise;
             
-            var phone = "2130656121799"; 
+            var phone = "213656121799"; 
             var url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
             
             window.open(url, '_blank');
@@ -192,7 +187,7 @@
                 body.dir = 'rtl';
                 document.getElementById('sub').innerText = 'تدرب مع الكوتش أكرم وحقق أهدافك بدنيًا وذهنيًا.';
                 document.getElementById('btn-start').innerText = 'ابدأ الآن';
-                document.getElementById('m-title').innerText = 'اختر تمرين الكاليستينيكس الخاص بك:';
+                document.getElementById('m-title').innerText = 'اختر هدفك أو البرنامج المطلوب:';
                 document.getElementById('btn-show').innerText = 'عرض العروض';
                 document.getElementById('t-off').innerText = 'عروضنا';
                 
@@ -230,7 +225,7 @@
                 body.dir = 'ltr';
                 document.getElementById('sub').innerText = 'Train with Coach Akram & reach your goals physically and mentally.';
                 document.getElementById('btn-start').innerText = 'Start Now';
-                document.getElementById('m-title').innerText = 'Choose your Calisthenics exercise:';
+                document.getElementById('m-title').innerText = 'Choose your goal:';
                 document.getElementById('btn-show').innerText = 'View Offers';
                 document.getElementById('t-off').innerText = 'Our Offers';
 
@@ -268,7 +263,7 @@
                 body.dir = 'ltr';
                 document.getElementById('sub').innerText = 'Entraînez-vous avec le Coach Akram & atteignez vos objectifs physiquement et mentalement.';
                 document.getElementById('btn-start').innerText = 'Commencer';
-                document.getElementById('m-title').innerText = 'Choisissez votre exercice Calisthenics :';
+                document.getElementById('m-title').innerText = 'Choisissez votre objectif :';
                 document.getElementById('btn-show').innerText = 'Voir les offres';
                 document.getElementById('t-off').innerText = 'Nos offres';
 
